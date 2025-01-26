@@ -10,7 +10,9 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "pages/*": ["pages/*"]
+      "api/*": ["api/*"],
+      "pages/*": ["pages/*"],
+      "components/*": ["components/*"]
     }
   },
   "include": ["src/**/*"]
