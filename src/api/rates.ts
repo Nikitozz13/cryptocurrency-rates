@@ -1,33 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
+import { z } from 'zod';
 
 type Ticker = string;
 
-type Rate = {
-  rate: number;
-  ask: number;
-  bid: number;
-  diff24h: number;
-};
+const RateSchema = z.object({
+  rate: z.number(),
+  ask: z.number(),
+  bid: z.number(),
+  diff24h: z.number(),
+});
+const CurrencySchema = z.record(RateSchema);
+const CurrencyExtendedSchema = z.record(CurrencySchema);
 
-type Currency = {
-  [key: Ticker]: Rate;
-};
-
-type CurrencyExtended = {
-  [key: Ticker]: Currency;
-};
-
-// type RatesExtended = [keyof Currency, Currency][];
+type CurrencyExtended = z.infer<typeof CurrencyExtendedSchema>;
 
 export const fetchRatesExtended = async (): Promise<CurrencyExtended> => {
   const response = await axios.get<CurrencyExtended>(
     'https://app.youhodler.com/api/v3/rates/extended'
   );
-  return response.data;
+  const validation = CurrencyExtendedSchema.safeParse(response.data);
+  if (!validation.success) {
+    console.error(validation.error.errors);
+    return {};
+  }
+  return validation.data;
 };
 
-// type ParsedRates = { currency: Ticker; rate: Pick<Rate, 'rate'> }[];
 type ParsedRates = { currency: Ticker; rate: number }[];
 
 export const parseRates = (
