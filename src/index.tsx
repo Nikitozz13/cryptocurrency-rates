@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
+    <BrowserRouter basename='/cryptocurrency-rates'>
       <App />
     </BrowserRouter>
   </QueryClientProvider>
