@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
-import CurrencyDetails from 'components/CurrencyDetails';
-import CurrencyDetailsSkeleton from 'components/CurrencyDetailsSkeleton';
+import { CurrencyDetails } from 'components/CurrencyDetails';
+import { CurrencyDetailsSkeleton } from 'components/CurrencyDetails';
 
 type TickerRouteParams = {
   ticker: string;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { data } from 'react-router-dom';
 import { z } from 'zod';
 
 type Ticker = string;
@@ -12,6 +13,7 @@ const RateSchema = z.object({
 const CurrencySchema = z.record(RateSchema);
 const CurrencyExtendedSchema = z.record(CurrencySchema);
 
+export type Rate = z.infer<typeof RateSchema>;
 type CurrencyExtended = z.infer<typeof CurrencyExtendedSchema>;
 
 export const fetchRatesExtended = async (): Promise<CurrencyExtended> => {
@@ -41,4 +43,16 @@ export const parseRates = (
       return [];
     })
     .sort((a, b) => a.currency.localeCompare(b.currency));
+};
+
+type ParseCurrencyDetails = [Ticker, Rate];
+
+export const parseCurrencyDetails = (
+  data: CurrencyExtended,
+  ticker: Ticker,
+): ParseCurrencyDetails[] => {
+  if (!data[ticker]) {
+    return [];
+  }
+  return Object.entries(data[ticker]).sort();
 };
