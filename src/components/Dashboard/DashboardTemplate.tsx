@@ -20,13 +20,17 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
     setMobileOpen(false);
   };
 
+  const handleDrawerMobileClose = () => {
+    setMobileOpen(false);
+  };
+
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
 
   const handleDrawerToggle = () => {
     if (!isClosing) {
-      setMobileOpen(!mobileOpen);
+      setMobileOpen((prevOpen) => !prevOpen);
     }
   };
 
@@ -78,7 +82,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DRAWER_WIDTH },
           }}
         >
-          <DrawerRoutesList />
+          <DrawerRoutesList onRouteClick={handleDrawerMobileClose}/>
         </Drawer>
 
         <Drawer
@@ -89,7 +93,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
           }}
           open
         >
-          <DrawerRoutesList />
+          <DrawerRoutesList onRouteClick={handleDrawerMobileClose} />
         </Drawer>
       </Box>
 

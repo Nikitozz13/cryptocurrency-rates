@@ -9,7 +9,11 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { routes } from './routes';
 
-const DrawerRoutesList: React.FC = () => {
+interface DrawerRoutesListProps {
+  onRouteClick: () => void;
+}
+
+const DrawerRoutesList: React.FC<DrawerRoutesListProps> = ({ onRouteClick }) => {
   return (
     <div>
       <Toolbar />
@@ -17,7 +21,7 @@ const DrawerRoutesList: React.FC = () => {
       <List>
         {routes.primary.map((route) => (
           <ListItem key={route.name} disablePadding>
-            <ListItemButton component={Link} to={route.route} key={route.route}>
+            <ListItemButton component={Link} to={route.route} key={route.route} onClick={onRouteClick}>
               <ListItemIcon>
                 <route.icon color='primary' />
               </ListItemIcon>
@@ -30,7 +34,7 @@ const DrawerRoutesList: React.FC = () => {
       <List>
         {routes.secondary.map((route) => (
           <ListItem key={route.name} disablePadding>
-            <ListItemButton component={Link} to={route.route} key={route.route}>
+            <ListItemButton component={Link} to={route.route} key={route.route} onClick={onRouteClick}>
               <ListItemIcon>
                 <route.icon color='primary' />
               </ListItemIcon>
