@@ -9,12 +9,15 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Poll from '@mui/icons-material/Poll';
+import HelpCenter from '@mui/icons-material/HelpCenter';
+import { ListItemIcon } from '@mui/material';
 
 const DRAWER_WIDTH = 240;
 
 const routes = [
-  { name: 'Home', route: '/' },
-  { name: 'About', route: '/about' },
+  { name: 'Exchange Rates', route: '/', icon: Poll },
+  { name: 'About', route: '/about', icon: HelpCenter },
 ];
 
 const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -29,7 +32,7 @@ const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Dashboard
+            Cryptocurrency Rates
           </Typography>
         </Toolbar>
       </AppBar>
@@ -51,6 +54,7 @@ const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
           <List>
             {routes.map((route) => (
               <ListItemButton component={Link} to={route.route} key={route.route}>
+                <ListItemIcon>{<route.icon color='primary' />}</ListItemIcon>
                 <ListItemText primary={route.name} />
               </ListItemButton>
             ))}
