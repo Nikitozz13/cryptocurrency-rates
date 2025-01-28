@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import { CurrencyExtended, fetchRatesExtended, ParsedRate, parseRates } from 'api/rates';
 import CurrencyListItem from './CurrencyListItem';
 
