@@ -2,7 +2,7 @@
   "name": "cryptocurrency-rates",
   "version": "1.0.0",
   "description": "Cryptocurrency rates application",
-  "homepage": "https://Nikitozz13.github.io/cryptocurrency-rates",
+  "homepage": "/cryptocurrency-rates",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
