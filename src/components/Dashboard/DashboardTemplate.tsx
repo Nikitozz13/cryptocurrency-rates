@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMatch } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -7,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import BackButton from './BackButton';
 import DrawerRoutesList from './DrawerRoutesList';
 
 const DRAWER_WIDTH = 240;
@@ -14,6 +16,7 @@ const DRAWER_WIDTH = 240;
 const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const showBackButton = useMatch('/:ticker');
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -56,6 +59,7 @@ const DashboardTemplate: React.FC<React.PropsWithChildren> = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
+          {showBackButton && <BackButton sx={{ mr: 1 }} />}
           <Typography variant="h6" noWrap component="div">
             Cryptocurrency Rates
           </Typography>
