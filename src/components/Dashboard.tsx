@@ -10,7 +10,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-const drawerWidth = 240;
+const DRAWER_WIDTH = 240;
 
 const routes = [
   { name: 'Home', route: '/' },
@@ -22,7 +22,7 @@ const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      {/* Верхняя панель */}
+      {/* Header panel */}
       <AppBar
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -34,14 +34,14 @@ const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
         </Toolbar>
       </AppBar>
 
-      {/* Боковая панель */}
+      {/* Sidebar */}
       <Drawer
         variant="permanent"
         sx={{
-          width: drawerWidth,
+          width: DRAWER_WIDTH,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
             boxSizing: 'border-box',
           },
         }}
@@ -58,7 +58,7 @@ const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
         </Box>
       </Drawer>
 
-      {/* Основной контент */}
+      {/* Main content */}
       <Box
         component="main"
         sx={{
@@ -68,7 +68,8 @@ const Dashboard: React.FC<React.PropsWithChildren> = ({ children }) => {
         }}
       >
         <Toolbar />
-        {/* Основной контент дашборда */}
+
+        {/* Main dashboard content */}
         {children}
       </Box>
     </Box>

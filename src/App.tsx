@@ -5,7 +5,7 @@ import HomePage from 'pages/Home';
 import AboutPage from 'pages/About';
 import TickerPage from 'pages/Ticker';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Dashboard>
       <Routes>

@@ -1,15 +1,16 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 const CurrencyDetailsSkeleton: React.FC = () => {
   return (
-    <div>
-      <h3><Skeleton variant="text" sx={{ fontSize: '1em' }} width={100} /></h3>
-      <p><Skeleton variant="text" sx={{ fontSize: '1em' }} width={200} /></p>
-      <p><Skeleton variant="text" sx={{ fontSize: '1em' }} width={200} /></p>
-      <p><Skeleton variant="text" sx={{ fontSize: '1em' }} width={200} /></p>
-      <p><Skeleton variant="text" sx={{ fontSize: '1em' }} width={250} /></p>
-    </div>
+    <Stack>
+      <Skeleton variant="text" sx={{ fontSize: '1em' }} width={100} />
+      <Skeleton variant="text" sx={{ fontSize: '1em' }} width={200} />
+      <Skeleton variant="text" sx={{ fontSize: '1em' }} width={200} />
+      <Skeleton variant="text" sx={{ fontSize: '1em' }} width={200} />
+      <Skeleton variant="text" sx={{ fontSize: '1em' }} width={250} />
+    </Stack>
   );
 };
 

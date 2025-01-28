@@ -1,24 +1,28 @@
 import React from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchRatesExtended, parseCurrencyDetails } from 'api/rates';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import {
+  CurrencyExtended,
+  fetchRatesExtended,
+  ParseCurrencyDetails,
+  parseTickerDetails,
+} from 'api/rates';
 import CurrencyDetailsListItem from './CurrencyDetailsListItem';
-
-const DEFAULT_BASE_CURRENCY = 'usd';
 
 interface CurrencyDetailsProps {
   ticker: string;
 }
 
 const CurrencyDetails: React.FC<CurrencyDetailsProps> = ({ ticker }) => {
-  const { data } = useSuspenseQuery({
+  const { data } = useSuspenseQuery<CurrencyExtended>({
     queryKey: ['ratesExtended'],
     queryFn: () => fetchRatesExtended(),
   });
 
-  const parsedCurrency = parseCurrencyDetails(data, ticker);
+  const parsedCurrency: ParseCurrencyDetails[] = parseTickerDetails(data, ticker);
+
   if (!parsedCurrency) {
     return <div>Invalid ticker.</div>;
   }

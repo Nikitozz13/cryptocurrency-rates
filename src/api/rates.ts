@@ -1,8 +1,5 @@
 import axios from 'axios';
-import { data } from 'react-router-dom';
 import { z } from 'zod';
-
-type Ticker = string;
 
 const RateSchema = z.object({
   rate: z.number(),
@@ -14,8 +11,15 @@ const CurrencySchema = z.record(RateSchema);
 const CurrencyExtendedSchema = z.record(CurrencySchema);
 
 export type Rate = z.infer<typeof RateSchema>;
-type CurrencyExtended = z.infer<typeof CurrencyExtendedSchema>;
+export type Currency = z.infer<typeof CurrencySchema>;
+export type CurrencyExtended = z.infer<typeof CurrencyExtendedSchema>;
 
+export type ParsedRate = { currency: string; rate: number };
+export type ParseCurrencyDetails = [string, Rate];
+
+/**
+ * Fetches validated extended rates from the API.
+ */
 export const fetchRatesExtended = async (): Promise<CurrencyExtended> => {
   const response = await axios.get<CurrencyExtended>(
     'https://app.youhodler.com/api/v3/rates/extended'
@@ -28,12 +32,15 @@ export const fetchRatesExtended = async (): Promise<CurrencyExtended> => {
   return validation.data;
 };
 
-type ParsedRates = { currency: Ticker; rate: number }[];
-
+/**
+ * Parses the rates from the API response to a base currency.
+ * @param data The API response data.
+ * @param baseCurrency The base currency to parse the rates to.
+ */
 export const parseRates = (
   data: CurrencyExtended,
-  baseCurrency: Ticker
-): ParsedRates => {
+  baseCurrency: string
+): ParsedRate[] => {
   return Object.entries(data)
     .flatMap(([currency, details]) => {
       const base = details[baseCurrency];
@@ -45,11 +52,14 @@ export const parseRates = (
     .sort((a, b) => a.currency.localeCompare(b.currency));
 };
 
-type ParseCurrencyDetails = [Ticker, Rate];
-
-export const parseCurrencyDetails = (
+/**
+ * Parses the currency details for a given ticker.
+ * @param data The API response data.
+ * @param ticker The ticker to parse the details for.
+ */
+export const parseTickerDetails = (
   data: CurrencyExtended,
-  ticker: Ticker,
+  ticker: string,
 ): ParseCurrencyDetails[] => {
   if (!data[ticker]) {
     return [];
